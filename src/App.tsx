@@ -12,7 +12,7 @@ import { ProductModal } from './components/ProductModal';
 import { CartSidebar } from './components/CartSidebar';
 import { NequiModal } from './components/NequiModal';
 import { Footer } from './components/Footer';
-import { Search, AlertCircle, Loader2, Sparkles, ShoppingBag, CheckCircle2, Trophy, Flame, Shield, ArrowRight } from 'lucide-react';
+import { Search, AlertCircle, Loader2, Sparkles, ShoppingBag, CheckCircle2, Trophy, Flame, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
 
@@ -243,7 +243,7 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        {/* Dynamic Hero Banner */}
+        {/* Clean Professional Hero Banner */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -255,13 +255,13 @@ export default function App() {
           </div>
           <div className="max-w-xl z-10 space-y-3">
             <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 font-extrabold text-xs px-3.5 py-1.5 rounded-full border border-emerald-500/30 backdrop-blur-md">
-              <Flame className="w-4 h-4 text-emerald-400 animate-pulse" /> Sincronizado Directo con Google Sheets
+              <Flame className="w-4 h-4 text-emerald-400 animate-pulse" /> Calidad AAA · Envíos Bogotá y Soacha
             </div>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
               Camisetas de Fútbol <span className="text-emerald-400">Mayor y Detal</span>
             </h2>
             <p className="text-blue-100 text-sm md:text-base leading-relaxed">
-              Actualiza precios, stock y nuevos equipos directamente en tu Google Sheet y presiona <strong className="text-white">"Actualizar Sheet"</strong> en la parte superior. Envíos en Bogotá y Soacha.
+              Las mejores camisetas, busos, sudaderas y polos de tus equipos favoritos. Diseños oficiales con escudos bordados y tecnología de secado rápido.
             </p>
           </div>
           <div className="z-10 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 text-center flex flex-col gap-3 min-w-[220px] shadow-2xl">
@@ -331,7 +331,7 @@ export default function App() {
         {loading ? (
           <div className="py-24 text-center flex flex-col items-center justify-center gap-3">
             <Loader2 className="w-10 h-10 text-[#0f2a43] animate-spin" />
-            <p className="text-sm font-bold text-slate-600">Sincronizando catálogo desde Google Sheets...</p>
+            <p className="text-sm font-bold text-slate-600">Cargando catálogo...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
           <motion.div
