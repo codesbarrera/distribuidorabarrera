@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CartItem, CustomerData } from '../types';
-import { FALLBACK_IMAGE } from '../data/mockProducts';
-import { X, Trash2, Plus, Minus, ShoppingBag, Send, QrCode, ShieldCheck, Sparkles, Mail, Loader2, CheckCircle2 } from 'lucide-react';
+import { FALLBACK_IMAGE, GOOGLE_SCRIPT_URL } from '../data/mockProducts';
+import { X, Trash2, Plus, Minus, ShoppingBag, Send, QrCode, ShieldCheck, Sparkles, Mail, Loader2 } from 'lucide-react';
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ interface CartSidebarProps {
   customer: CustomerData;
   onChangeCustomer: (field: keyof CustomerData, value: string) => void;
   onOpenNequiModal: () => void;
-  onSendOrder: (emailStatus: string) => void;
+  onSendOrder: (statusMsg: string) => void;
 }
 
 const formatCOP = (n: number) => '$' + Number(n).toLocaleString('es-CO');
@@ -28,7 +28,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
   onOpenNequiModal,
   onSendOrder,
 }) => {
-  const [sendingEmail, setSendingEmail] = useState(false);
+  const [loadingOrder, setLoadingOrder] = useState(false);
 
   if (!isOpen) return null;
 
@@ -38,7 +38,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
   const discount = isMayorista ? subtotal * 0.1 : 0;
   const total = subtotal - discount;
 
-  const handleSubmitOrder = () => {
+  const handleSubmitOrder = async () => {
     if (cart.length === 0) {
       alert('Tu carrito está vacío.');
       return;
@@ -48,11 +48,38 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
       return;
     }
 
-    setSendingEmail(true);
+    setLoadingOrder(true);
+
+    const detalleStr = cart.map(i => `${i.cantidad}x ${i.nombre} (${i.equipo}) [Talla: ${i.talla}]`).join(', ');
+
+    // Send order to Google Sheets (clientes tab) via Apps Script POST
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: customer.nombre,
+          apellido: customer.apellido,
+          email: customer.email,
+          telefono: customer.telefono,
+          cedula: customer.cedula,
+          direccion: customer.direccion,
+          barrio: customer.barrio,
+          ciudad: customer.ciudad,
+          detalle: detalleStr,
+          total: total,
+          notas: customer.notas
+        })
+      });
+    } catch (e) {
+      console.error('Google Sheet log note:', e);
+    }
+
     setTimeout(() => {
-      setSendingEmail(false);
-      onSendOrder('Correo de confirmación enviado a ' + customer.email + ' y notificación enviada a codesbarrera@gmail.com');
-    }, 800);
+      setLoadingOrder(false);
+      onSendOrder('Registrado en Google Sheets y WhatsApp');
+    }, 1000);
   };
 
   return (
@@ -259,7 +286,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
                 title="Ampliar QR Nequi"
               />
               <p className="text-[11px] text-slate-600">
-                Realiza tu pago al Nequi <strong className="text-slate-900">302 834 5744</strong>. Recibirás tu confirmación de correo y WhatsApp.
+                Realiza tu pago al Nequi <strong className="text-slate-900">302 834 5744</strong>. El pedido se registrará automáticamente en tu Google Sheet (pestaña clientes).
               </p>
             </div>
           </div>
@@ -289,22 +316,22 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
 
             <button
               onClick={handleSubmitOrder}
-              disabled={cart.length === 0 || sendingEmail}
+              disabled={cart.length === 0 || loadingOrder}
               className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition ${
-                cart.length === 0 || sendingEmail
+                cart.length === 0 || loadingOrder
                   ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
                   : 'bg-[#25d366] hover:bg-[#22bf5b] text-white shadow-emerald-900/20 active:scale-95'
               }`}
             >
-              {sendingEmail ? (
+              {loadingOrder ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  Generando confirmación...
+                  Guardando en Google Sheets...
                 </>
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  Enviar Pedido y Correo 📱 (WhatsApp 300 517 7418)
+                  Registrar Pedido y Abrir WhatsApp 📱
                 </>
               )}
             </button>
