@@ -11,16 +11,14 @@ import { ProductCard } from './components/ProductCard';
 import { ProductModal } from './components/ProductModal';
 import { CartSidebar } from './components/CartSidebar';
 import { NequiModal } from './components/NequiModal';
-import { AdminPanel } from './components/AdminPanel';
 import { Footer } from './components/Footer';
 import { Search, AlertCircle, Loader2, Sparkles, ShoppingBag, CheckCircle2, Trophy, Flame, Shield, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
 
 export default function App() {
-  const [dataSource, setDataSource] = useState<'api' | 'local'>('local');
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,17 +49,13 @@ export default function App() {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isNequiOpen, setIsNequiOpen] = useState(false);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
   const [orderSuccessBanner, setOrderSuccessBanner] = useState<string | null>(null);
 
+  // Fetch products from Google Sheets API by default
   useEffect(() => {
-    if (dataSource === 'api') {
-      fetchProductsFromApi();
-    } else {
-      setProducts(INITIAL_PRODUCTS);
-    }
-  }, [dataSource]);
+    fetchProductsFromApi();
+  }, []);
 
   const fetchProductsFromApi = async () => {
     setLoading(true);
@@ -74,20 +68,20 @@ export default function App() {
           nombre: p.nombre || p.Nombre || 'Camiseta',
           equipo: p.equipo || p.Equipo || 'General',
           tipo: p.tipo || p.Tipo || 'Fútbol',
-          precio_detal: Number(p.precio_detal || p.precio || p.Precio || 50000),
-          precio_mayorista: Number(p.precio_mayorista || 40000),
+          precio_detal: Number(p.precio_detal || p.precio || p.Precio || 70000),
+          precio_mayorista: Number(p.precio_mayorista || p.precio_mayor || 65000),
           imagen: p.imagen || p.Imagen || '',
           tallas: Array.isArray(p.tallas) ? p.tallas : (typeof p.tallas === 'string' ? p.tallas.split(',') : ['S', 'M', 'L', 'XL']),
-          stock: Number(p.stock !== undefined ? p.stock : 20),
+          stock: Number(p.stock !== undefined ? p.stock : 10),
           descripcion: p.descripcion || p.Descripcion || ''
         }));
         setProducts(mapped);
       } else {
-        setErrorMsg('No se pudieron cargar los datos de la API. Mostrando catálogo local.');
+        setErrorMsg('No se pudieron cargar los datos de Google Sheets. Usando catálogo guardado.');
       }
     } catch (e) {
       console.error(e);
-      setErrorMsg('Error de conexión con Google Sheets. Usando catálogo predeterminado.');
+      setErrorMsg('Error de conexión con Google Sheets. Usando catálogo por defecto.');
     } finally {
       setLoading(false);
     }
@@ -201,22 +195,6 @@ export default function App() {
     }, 1500);
   };
 
-  const handleAddProduct = (newProd: Product) => {
-    setProducts([newProd, ...products]);
-  };
-
-  const handleUpdateProduct = (updatedProd: Product, index: number) => {
-    const updated = [...products];
-    updated[index] = updatedProd;
-    setProducts(updated);
-  };
-
-  const handleDeleteProduct = (index: number) => {
-    if (window.confirm('¿Estás seguro de eliminar este producto?')) {
-      setProducts(products.filter((_, i) => i !== index));
-    }
-  };
-
   const equiposDisponibles = Array.from(new Set(products.map((p) => p.equipo).filter(Boolean)));
   const tiposDisponibles = Array.from(new Set(products.map((p) => p.tipo).filter(Boolean)));
 
@@ -235,9 +213,8 @@ export default function App() {
       <Header
         cartCount={cartCount}
         onOpenCart={() => setIsCartOpen(true)}
-        onOpenAdmin={() => setIsAdminOpen(true)}
-        dataSource={dataSource}
-        onToggleDataSource={() => setDataSource(dataSource === 'local' ? 'api' : 'local')}
+        onRefreshSheet={fetchProductsFromApi}
+        loadingApi={loading}
       />
 
       <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
@@ -278,13 +255,13 @@ export default function App() {
           </div>
           <div className="max-w-xl z-10 space-y-3">
             <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 font-extrabold text-xs px-3.5 py-1.5 rounded-full border border-emerald-500/30 backdrop-blur-md">
-              <Flame className="w-4 h-4 text-emerald-400 animate-pulse" /> Temporada Oficial 2026 / 2027
+              <Flame className="w-4 h-4 text-emerald-400 animate-pulse" /> Sincronizado Directo con Google Sheets
             </div>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
               Camisetas de Fútbol <span className="text-emerald-400">Mayor y Detal</span>
             </h2>
             <p className="text-blue-100 text-sm md:text-base leading-relaxed">
-              Envíos rápidos y seguros a domicilio en <strong className="text-white">Bogotá, Soacha y toda Cundinamarca</strong>. Calidad AAA, escudos bordados y telas dry-fit de máxima durabilidad.
+              Actualiza precios, stock y nuevos equipos directamente en tu Google Sheet y presiona <strong className="text-white">"Actualizar Sheet"</strong> en la parte superior. Envíos en Bogotá y Soacha.
             </p>
           </div>
           <div className="z-10 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 text-center flex flex-col gap-3 min-w-[220px] shadow-2xl">
@@ -354,7 +331,7 @@ export default function App() {
         {loading ? (
           <div className="py-24 text-center flex flex-col items-center justify-center gap-3">
             <Loader2 className="w-10 h-10 text-[#0f2a43] animate-spin" />
-            <p className="text-sm font-bold text-slate-600">Cargando catálogo en vivo...</p>
+            <p className="text-sm font-bold text-slate-600">Sincronizando catálogo desde Google Sheets...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
           <motion.div
@@ -362,7 +339,7 @@ export default function App() {
             animate={{ opacity: 1 }}
             className="py-24 text-center bg-white rounded-3xl border border-slate-200 shadow-sm"
           >
-            <ShoppingBag className="w-16 h-16 text-slate-300 mx-auto mb-3 animate-pulse" />
+            <ShoppingBag className="w-16 h-16 text-slate-300 mx-auto mb-2 animate-pulse" />
             <p className="font-extrabold text-slate-800 text-base">No se encontraron prendas</p>
             <p className="text-xs text-slate-500 mt-1">Prueba limpiando los filtros o buscando otro término</p>
           </motion.div>
@@ -432,15 +409,6 @@ export default function App() {
       )}
 
       <NequiModal isOpen={isNequiOpen} onClose={() => setIsNequiOpen(false)} />
-
-      <AdminPanel
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
-        products={products}
-        onAddProduct={handleAddProduct}
-        onUpdateProduct={handleUpdateProduct}
-        onDeleteProduct={handleDeleteProduct}
-      />
     </div>
   );
 }

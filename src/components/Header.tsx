@@ -1,20 +1,18 @@
 import React from 'react';
-import { ShoppingCart, ShieldCheck, Truck, Sparkles, Settings } from 'lucide-react';
+import { ShoppingCart, ShieldCheck, Truck, Sparkles, RefreshCw } from 'lucide-react';
 
 interface HeaderProps {
   cartCount: number;
   onOpenCart: () => void;
-  onOpenAdmin: () => void;
-  dataSource: 'api' | 'local';
-  onToggleDataSource: () => void;
+  onRefreshSheet: () => void;
+  loadingApi: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   cartCount,
   onOpenCart,
-  onOpenAdmin,
-  dataSource,
-  onToggleDataSource
+  onRefreshSheet,
+  loadingApi,
 }) => {
   return (
     <header className="bg-[#0f2a43] text-white sticky top-0 z-40 shadow-md">
@@ -26,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Mayorista desde 6 unidades
         </span>
         <span className="flex items-center gap-1">
-          <Sparkles className="w-3.5 h-3.5 text-pink-400" /> Pago seguro por Nequi
+          <Sparkles className="w-3.5 h-3.5 text-pink-400" /> Pago seguro por Nequi (302 834 5744)
         </span>
       </div>
 
@@ -36,8 +34,8 @@ export const Header: React.FC<HeaderProps> = ({
             <h1 className="text-2xl font-extrabold tracking-tight flex items-center gap-2">
               ⚽ Distribuidora Barrera
             </h1>
-            <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-semibold border border-emerald-500/30">
-              Mayor y Detal
+            <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full font-semibold border border-emerald-500/30">
+              Google Sheets Sync
             </span>
           </div>
           <p className="text-sm text-blue-200 mt-0.5">
@@ -47,20 +45,13 @@ export const Header: React.FC<HeaderProps> = ({
 
         <div className="flex items-center gap-3">
           <button
-            onClick={onToggleDataSource}
-            className="text-xs bg-white/10 hover:bg-white/20 text-blue-100 px-3 py-2 rounded-lg transition border border-white/10 flex items-center gap-1.5"
-            title="Cambiar origen de datos (Google Sheets o Catálogo Local)"
+            onClick={onRefreshSheet}
+            disabled={loadingApi}
+            className="text-xs bg-white/10 hover:bg-white/20 text-blue-100 px-3.5 py-2 rounded-xl transition border border-white/10 flex items-center gap-2 font-medium"
+            title="Sincronizar catálogo con Google Sheets"
           >
-            <span>Fuente: {dataSource === 'api' ? 'Google Sheets' : 'Local'}</span>
-          </button>
-
-          <button
-            onClick={onOpenAdmin}
-            className="bg-white/10 hover:bg-white/20 text-white p-2.5 rounded-xl transition border border-white/10 flex items-center gap-1.5 text-sm font-medium"
-            title="Panel de Administración"
-          >
-            <Settings className="w-4 h-4" />
-            <span className="hidden sm:inline">Admin</span>
+            <RefreshCw className={`w-3.5 h-3.5 ${loadingApi ? 'animate-spin' : ''}`} />
+            <span className="hidden sm:inline">Actualizar Sheet</span>
           </button>
 
           <button
