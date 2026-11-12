@@ -1,0 +1,22 @@
+id,nombre,equipo,tipo,genero,calidad,tallas,precio_detal,precio_mayor,stock,imagen,mas vendido,estado
+1,camiseta retro,america,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/Cx9Xn01L/Whats-App-Image-2026-10-30-at-10-43-16.jpg,,activo
+2,camiseta retro azul,america,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/KjqLZVgR/Whats-App-Image-2026-09-16-at-09-49-37.jpg,,activo
+3,buso america negro,america,buso,hombre,AAA,S,120000,115000,10,https://i.postimg.cc/W3d1KLFh/IMG-20261001-WA0025(1).jpg,,activo
+4,buso america blanco,america,buso,hombre,AAA,"S,M,L,XL",120000,115000,10,https://i.postimg.cc/HnmFMbCZ/IMG-20261001-WA0023.jpg,,activo
+5,buso américa kapa rojo,america,buso,hombre,AAA,"S,M,L,XL",120000,115000,10,https://i.postimg.cc/9FMJnL1T/IMG-20261030-WA0119.jpg,,activo
+6,camiseta retro,america,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/MT55HcFC/Whats-App-Image-2026-11-04-at-12-04-18.jpg,,activo
+7,camiseta negra del america de cali,america,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/52G2cn9m/Whats-App-Image-2026-11-04-at-12-04-22.jpg,,activo
+8,camiseta del america de cali,america,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/K8h09yBW/Whats-App-Image-2026-11-04-at-12-04-23.jpg,,activo
+9,camiseta del america de cali blanca,america,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/1XCrsLjr/Whats-App-Image-2026-11-04-at-12-04-19.jpg,,activo
+10,camiseta america de cali saeta,america,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/T2H012vk/Whats-App-Image-2026-11-04-at-12-04-35.jpg,,activo
+11,buso america rojo,america,buso,hombre,AAA,"S,M,L ",120000,110000,10,https://i.postimg.cc/k4dk4KZk/Whats-App-Image-2026-11-04-at-12-04-29.jpg,,activo
+12,POLO AMERICA DE CALI COLOR ROJO,america,Polo,hombre ,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/66r9Gh95/IMG-20261030-WA0111.jpg,,activo
+13,Camiseta america de cali colanta-betplay,america,camiseta ,hombre ,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/8PpKh1Nv/IMG-20261010-WA0010.jpg,,activo
+14,camiseta ,millonarios,camiseta ,hombre,AAA,"XL,XXL, L",70000,65000,10,https://i.postimg.cc/RF6ynLcC/Whats-App-Image-2026-11-04-at-10-44-55.jpg,,activo
+15,SUDADERA ENTRENAMIENTO NIÑO MILLONARIOS,millonarios,sudadera,unisex-niño,AAA,"6,8",120000,110000,10,https://i.postimg.cc/zBywhchN/Whats-App-Image-2026-11-04-at-10-53-18.jpg,,activo
+16,SUDADERA ENTRENAMIENTO NIÑO MILLONARIOS AMARILLO-AZUL,millonarios,sudadera,unisex-niño,AAA,"6,8,10",120000,110000,10,https://i.postimg.cc/YC8QsHf4/Whats-App-Image-2026-11-04-at-10-53-17.jpg,,activo
+17,MUSCULOSA AZUL MILLONARIOS,millonarios,MUSCULOSA,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/1zrBCv1L/Whats-App-Image-2026-11-06-at-10-30-19.jpg,,activo
+18,Camiseta retro Millonarios Pepsi,millonarios,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/sXzLF7bX/IMG-20261013-WA0020.jpg,,activo
+19,camiseta retro,nacional,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/fyfkJZhR/7e482a49-d71b-4d64-9766-f21a5d4f8efa.jpg,,activo
+20,camiseta nueva,nacional,camiseta ,hombre,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/GtT4Pp5Q/ATLETICO-NACIONAL-FAN.jpg,,activo
+21,Camiseta Oficial Edición Especial Atlético Nacional Calidad 1.1,nacional ,camiseta ,hombre ,AAA,"S,M,L,XL",70000,65000,10,https://i.postimg.cc/R0FkgsXd/1794264465300.jpg,,activo

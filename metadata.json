@@ -1,0 +1,6 @@
+{
+  "name": "Distribuidora Barrera | Camisetas de Fútbol",
+  "description": "Tienda online mayorista y detal de camisetas de fútbol en Bogotá y Soacha con pedidos por WhatsApp y pago Nequi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

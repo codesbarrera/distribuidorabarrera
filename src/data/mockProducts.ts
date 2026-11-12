@@ -1,0 +1,260 @@
+import { Product } from '../types';
+
+export const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80';
+
+export const INITIAL_PRODUCTS: Product[] = [
+  {
+    id: '1',
+    nombre: 'Camiseta Retro América',
+    equipo: 'América de Cali',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/Cx9Xn01L/Whats-App-Image-2026-10-30-at-10-43-16.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Camiseta retro oficial calidad AAA con acabados de alta durabilidad.'
+  },
+  {
+    id: '2',
+    nombre: 'Camiseta Retro Azul América',
+    equipo: 'América de Cali',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/KjqLZVgR/Whats-App-Image-2026-09-16-at-09-49-37.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Edición especial retro color azul América de Cali.'
+  },
+  {
+    id: '3',
+    nombre: 'Buso América Negro',
+    equipo: 'América de Cali',
+    tipo: 'Buso',
+    precio_detal: 120000,
+    precio_mayorista: 115000,
+    imagen: 'https://i.postimg.cc/W3d1KLFh/IMG-20261001-WA0025(1).jpg',
+    tallas: ['S'],
+    stock: 10,
+    descripcion: 'Buso térmico deportivo color negro América.'
+  },
+  {
+    id: '4',
+    nombre: 'Buso América Blanco',
+    equipo: 'América de Cali',
+    tipo: 'Buso',
+    precio_detal: 120000,
+    precio_mayorista: 115000,
+    imagen: 'https://i.postimg.cc/HnmFMbCZ/IMG-20261001-WA0023.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Buso deportivo color blanco con detalles escarlatas.'
+  },
+  {
+    id: '5',
+    nombre: 'Buso América Kappa Rojo',
+    equipo: 'América de Cali',
+    tipo: 'Buso',
+    precio_detal: 120000,
+    precio_mayorista: 115000,
+    imagen: 'https://i.postimg.cc/9FMJnL1T/IMG-20261030-WA0119.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Buso oficial Kappa rojo calidad AAA.'
+  },
+  {
+    id: '6',
+    nombre: 'Camiseta Retro Escarlata',
+    equipo: 'América de Cali',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/MT55HcFC/Whats-App-Image-2026-11-04-at-12-04-18.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Camiseta retro clásica de colección.'
+  },
+  {
+    id: '7',
+    nombre: 'Camiseta Negra América de Cali',
+    equipo: 'América de Cali',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/52G2cn9m/Whats-App-Image-2026-11-04-at-12-04-22.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Camiseta visitante color negro con detalles dorados.'
+  },
+  {
+    id: '8',
+    nombre: 'Camiseta Oficial América de Cali',
+    equipo: 'América de Cali',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/K8h09yBW/Whats-App-Image-2026-11-04-at-12-04-23.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Camiseta local tradicional escarlata.'
+  },
+  {
+    id: '9',
+    nombre: 'Camiseta América de Cali Blanca',
+    equipo: 'América de Cali',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/1XCrsLjr/Whats-App-Image-2026-11-04-at-12-04-19.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Camiseta blanca de visita con alta tecnología de transpiración.'
+  },
+  {
+    id: '10',
+    nombre: 'Camiseta América de Cali Saeta',
+    equipo: 'América de Cali',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/T2H012vk/Whats-App-Image-2026-11-04-at-12-04-35.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Edición especial Saeta calidad AAA.'
+  },
+  {
+    id: '11',
+    nombre: 'Buso América Rojo',
+    equipo: 'América de Cali',
+    tipo: 'Buso',
+    precio_detal: 120000,
+    precio_mayorista: 110000,
+    imagen: 'https://i.postimg.cc/k4dk4KZk/Whats-App-Image-2026-11-04-at-12-04-29.jpg',
+    tallas: ['S', 'M', 'L'],
+    stock: 10,
+    descripcion: 'Buso rojo de entrenamiento y presentación.'
+  },
+  {
+    id: '12',
+    nombre: 'Polo América de Cali Rojo',
+    equipo: 'América de Cali',
+    tipo: 'Polo',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/66r9Gh95/IMG-20261030-WA0111.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Camisa tipo polo casual elegante color rojo.'
+  },
+  {
+    id: '13',
+    nombre: 'Camiseta América Colanta-Betplay',
+    equipo: 'América de Cali',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/8PpKh1Nv/IMG-20261010-WA0010.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Con patrocinios oficiales de Liga Betplay y Colanta.'
+  },
+  {
+    id: '14',
+    nombre: 'Camiseta Millonarios Oficial',
+    equipo: 'Millonarios',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/RF6ynLcC/Whats-App-Image-2026-11-04-at-10-44-55.jpg',
+    tallas: ['L', 'XL', 'XXL'],
+    stock: 10,
+    descripcion: 'Camiseta oficial Embajadora azul rey.'
+  },
+  {
+    id: '15',
+    nombre: 'Sudadera Entrenamiento Niño Millonarios',
+    equipo: 'Millonarios',
+    tipo: 'Sudadera',
+    precio_detal: 120000,
+    precio_mayorista: 110000,
+    imagen: 'https://i.postimg.cc/zBywhchN/Whats-App-Image-2026-11-04-at-10-53-18.jpg',
+    tallas: ['6', '8'],
+    stock: 10,
+    descripcion: 'Sudadera de entrenamiento para niños tallas 6 y 8.'
+  },
+  {
+    id: '16',
+    nombre: 'Sudadera Niño Millonarios Amarillo-Azul',
+    equipo: 'Millonarios',
+    tipo: 'Sudadera',
+    precio_detal: 120000,
+    precio_mayorista: 110000,
+    imagen: 'https://i.postimg.cc/YC8QsHf4/Whats-App-Image-2026-11-04-at-10-53-17.jpg',
+    tallas: ['6', '8', '10'],
+    stock: 10,
+    descripcion: 'Sudadera infantil de entrenamiento edición especial.'
+  },
+  {
+    id: '17',
+    nombre: 'Musculosa Azul Millonarios',
+    equipo: 'Millonarios',
+    tipo: 'Musculosa',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/1zrBCv1L/Whats-App-Image-2026-11-06-at-10-30-19.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Musculosa sin mangas para entrenamiento de alta exigencia.'
+  },
+  {
+    id: '18',
+    nombre: 'Camiseta Retro Millonarios Pepsi',
+    equipo: 'Millonarios',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/sXzLF7bX/IMG-20261013-WA0020.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Camiseta retro con patrocinador histórico Pepsi.'
+  },
+  {
+    id: '19',
+    nombre: 'Camiseta Retro Atlético Nacional',
+    equipo: 'Atlético Nacional',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/fyfkJZhR/7e482a49-d71b-4d64-9766-f21a5d4f8efa.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Camiseta verdolaga retro de colección.'
+  },
+  {
+    id: '20',
+    nombre: 'Camiseta Nacional Fan',
+    equipo: 'Atlético Nacional',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/GtT4Pp5Q/ATLETICO-NACIONAL-FAN.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Versión fan verdolaga listada verde y blanca.'
+  },
+  {
+    id: '21',
+    nombre: 'Camiseta Edición Especial Atlético Nacional',
+    equipo: 'Atlético Nacional',
+    tipo: 'Camiseta',
+    precio_detal: 70000,
+    precio_mayorista: 65000,
+    imagen: 'https://i.postimg.cc/R0FkgsXd/1794264465300.jpg',
+    tallas: ['S', 'M', 'L', 'XL'],
+    stock: 10,
+    descripcion: 'Edición especial calidad 1:1 con detalles premium.'
+  }
+];
+
+export const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuJ7ftKQI0HUhje0y3DtNLYdcrIXszMJU-ohh2goSD-dlZNBcPut37s2dQo9X0wA/exec';
