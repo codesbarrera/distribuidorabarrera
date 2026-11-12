@@ -143,11 +143,11 @@ export default function App() {
     setCustomer((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSendOrder = (emailStatus: string) => {
+  const handleSendWhatsApp = () => {
     const WHATSAPP_NUMBER = '573005177418';
     let msg = '📋 *NUEVO PEDIDO - DISTRIBUIDORA BARRERA*\n\n';
     msg += `👤 *Cliente:* ${customer.nombre} ${customer.apellido}\n`;
-    msg += `📧 *Correo:* ${customer.email}\n`;
+    if (customer.email) msg += `📧 *Correo:* ${customer.email}\n`;
     msg += `📱 *Teléfono:* ${customer.telefono}\n`;
     if (customer.cedula) msg += `🆔 *Cédula/NIT:* ${customer.cedula}\n\n`;
 
@@ -187,12 +187,12 @@ export default function App() {
       origin: { y: 0.6 }
     });
 
-    setOrderSuccessBanner(`¡Pedido procesado con éxito! ${emailStatus}. Abriendo WhatsApp...`);
+    setOrderSuccessBanner(`¡Pedido generado con éxito! Abriendo WhatsApp...`);
     setTimeout(() => {
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(msg);
       window.open(url, '_blank');
       setIsCartOpen(false);
-    }, 1500);
+    }, 1200);
   };
 
   const equiposDisponibles = Array.from(new Set(products.map((p) => p.equipo).filter(Boolean)));
@@ -397,7 +397,7 @@ export default function App() {
         customer={customer}
         onChangeCustomer={handleCustomerChange}
         onOpenNequiModal={() => setIsNequiOpen(true)}
-        onSendOrder={handleSendOrder}
+        onSendWhatsApp={handleSendWhatsApp}
       />
 
       {modalProduct && (

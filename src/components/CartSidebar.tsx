@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CartItem, CustomerData } from '../types';
-import { FALLBACK_IMAGE, GOOGLE_SCRIPT_URL } from '../data/mockProducts';
-import { X, Trash2, Plus, Minus, ShoppingBag, Send, QrCode, ShieldCheck, Sparkles, Mail, Loader2 } from 'lucide-react';
+import { FALLBACK_IMAGE } from '../data/mockProducts';
+import { X, Trash2, Plus, Minus, ShoppingBag, Send, QrCode, ShieldCheck, Sparkles, Mail } from 'lucide-react';
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ interface CartSidebarProps {
   customer: CustomerData;
   onChangeCustomer: (field: keyof CustomerData, value: string) => void;
   onOpenNequiModal: () => void;
-  onSendOrder: (statusMsg: string) => void;
+  onSendWhatsApp: () => void;
 }
 
 const formatCOP = (n: number) => '$' + Number(n).toLocaleString('es-CO');
@@ -26,10 +26,8 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
   customer,
   onChangeCustomer,
   onOpenNequiModal,
-  onSendOrder,
+  onSendWhatsApp,
 }) => {
-  const [loadingOrder, setLoadingOrder] = useState(false);
-
   if (!isOpen) return null;
 
   const totalItems = cart.reduce((acc, item) => acc + item.cantidad, 0);
@@ -38,48 +36,16 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
   const discount = isMayorista ? subtotal * 0.1 : 0;
   const total = subtotal - discount;
 
-  const handleSubmitOrder = async () => {
+  const handleWhatsAppClick = () => {
     if (cart.length === 0) {
       alert('Tu carrito está vacío.');
       return;
     }
-    if (!customer.nombre || !customer.telefono || !customer.direccion || !customer.email) {
-      alert('Por favor completa los campos obligatorios: Nombre, Correo, Celular y Dirección.');
+    if (!customer.nombre || !customer.telefono || !customer.direccion) {
+      alert('Por favor completa los campos obligatorios: Nombre, Celular y Dirección.');
       return;
     }
-
-    setLoadingOrder(true);
-
-    const detalleStr = cart.map(i => `${i.cantidad}x ${i.nombre} (${i.equipo}) [Talla: ${i.talla}]`).join(', ');
-
-    // Send order to Google Sheets (clientes tab) via Apps Script POST
-    try {
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nombre: customer.nombre,
-          apellido: customer.apellido,
-          email: customer.email,
-          telefono: customer.telefono,
-          cedula: customer.cedula,
-          direccion: customer.direccion,
-          barrio: customer.barrio,
-          ciudad: customer.ciudad,
-          detalle: detalleStr,
-          total: total,
-          notas: customer.notas
-        })
-      });
-    } catch (e) {
-      console.error('Google Sheet log note:', e);
-    }
-
-    setTimeout(() => {
-      setLoadingOrder(false);
-      onSendOrder('Registrado en Google Sheets y WhatsApp');
-    }, 1000);
+    onSendWhatsApp();
   };
 
   return (
@@ -185,7 +151,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
             {/* Customer Data Form */}
             <div className="border-t border-slate-200 pt-5">
               <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3 flex items-center gap-1">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" /> 2. Datos de Envío y Correo (Bogotá y Soacha)
+                <ShieldCheck className="w-4 h-4 text-emerald-600" /> 2. Datos de Envío (Bogotá y Soacha)
               </h3>
 
               <div className="space-y-3">
@@ -211,7 +177,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <input
                       type="email"
-                      placeholder="Correo electrónico para confirmación *"
+                      placeholder="Correo electrónico (opcional)"
                       value={customer.email}
                       onChange={(e) => onChangeCustomer('email', e.target.value)}
                       className="text-xs pl-9 pr-3 py-2.5 border border-slate-200 rounded-lg w-full focus:ring-2 focus:ring-[#0f2a43] focus:outline-none"
@@ -286,7 +252,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
                 title="Ampliar QR Nequi"
               />
               <p className="text-[11px] text-slate-600">
-                Realiza tu pago al Nequi <strong className="text-slate-900">302 834 5744</strong>. El pedido se registrará automáticamente en tu Google Sheet (pestaña clientes).
+                Realiza tu pago al Nequi <strong className="text-slate-900">302 834 5744</strong> y adjunta tu comprobante al enviar el pedido por WhatsApp.
               </p>
             </div>
           </div>
@@ -315,25 +281,16 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
             </div>
 
             <button
-              onClick={handleSubmitOrder}
-              disabled={cart.length === 0 || loadingOrder}
+              onClick={handleWhatsAppClick}
+              disabled={cart.length === 0}
               className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition ${
-                cart.length === 0 || loadingOrder
+                cart.length === 0
                   ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
                   : 'bg-[#25d366] hover:bg-[#22bf5b] text-white shadow-emerald-900/20 active:scale-95'
               }`}
             >
-              {loadingOrder ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Guardando en Google Sheets...
-                </>
-              ) : (
-                <>
-                  <Send className="w-5 h-5" />
-                  Registrar Pedido y Abrir WhatsApp 📱
-                </>
-              )}
+              <Send className="w-5 h-5" />
+              Enviar Pedido por WhatsApp 📱 (300 517 7418)
             </button>
           </div>
         </div>
